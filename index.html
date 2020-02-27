@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <!-- This is licensed with the same license, or should be, as pygame
+    
+         Created by Asher Wolfstein (asherwunk@gmail.com)
+         Visit my blog for everything Asher at http://wunk.me/
+         Visit this specific programming project at http://wunk.me/programming-projects/pygjs
+         I also have a patreon -ahem-, so if you find this utility and potential future ones like it useful go here: https://www.patreon.com/asherwolfstein to support me.  Thanks! -->
+    
+    <head>
+        <title>Hello World</title>
+        <script type="text/javascript" src="brython.js"></script>
+        <script type="text/javascript" src="brython_stdlib.js"></script>
+        <script type="text/javascript" src="game.js"></script>
+        <style>
+            #gjs-canvas {
+                border: none;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                height: 100%;
+                width: 100%;
+                image-rendering: pixelated;
+            }
+        </style>
+    </head>
+    <body onload="brython();">
+        <canvas id="gjs-canvas" width="1280px" height="720px"></canvas>
+        
+        <script type="text/python">
+            from browser import console
+            import pygame
+            from pygame.locals import *
+            import pygjs
+            
+            # preload here
+            #pygame.preload(...)
+            
+            def ready():
+                # use this to throttle the framerate (if you want)
+                # comment it out to make the game run as fast as the browser runs it
+                #pygame.time.clock.tick(60)
+                
+                def drawFunc():
+                    # draw all your stuff here
+                    console.log('draw')
+                
+                def updateFunc(ms):
+                    # gets ms since last frame
+                    console.log('update', ms)
+                
+                def eventFunc(event):
+                    # process all your events here
+                    if event.type != ANIMATIONFRAME:
+                        console.log(event)
+                
+                def loadingFunc():
+                    # is called when/if preloading
+                    console.log('loading')
+                
+                pygame.event.mainloop(eventFunc, updateFunc, drawFunc, loadingFunc)
+            
+            pygame.event.ready(ready)
+            
+        </script>
+    </body>
+</html>
